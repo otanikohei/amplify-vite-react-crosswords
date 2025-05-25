@@ -1,39 +1,62 @@
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
+import { useState } from "react";
 import { generateClient } from "aws-amplify/data";
+import type { Schema } from "../amplify/data/resource";
+import CrosswordPuzzle from "./components/CrosswordPuzzle";
+import PuzzleList from "./components/PuzzleList";
+import PuzzleDetail from "./components/PuzzleDetail";
+import "./App.css";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [selectedPuzzleId, setSelectedPuzzleId] = useState<string | null>(null);
+  const [showDemo, setShowDemo] = useState<boolean>(false);
 
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
+  const handleSelectPuzzle = (puzzleId: string) => {
+    setSelectedPuzzleId(puzzleId);
+    setShowDemo(false);
+  };
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
+  const handleBackToList = () => {
+    setSelectedPuzzleId(null);
+    setShowDemo(false);
+  };
+
+  const handleShowDemo = () => {
+    setShowDemo(true);
+    setSelectedPuzzleId(null);
+  };
 
   return (
-    <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
-      </div>
-    </main>
+    <div className="app-container">
+      <header>
+        <h1>AWS クロスワードパズル</h1>
+      </header>
+
+      <main>
+        {showDemo ? (
+          <>
+            <button onClick={handleBackToList}>← パズル一覧に戻る</button>
+            <CrosswordPuzzle />
+          </>
+        ) : selectedPuzzleId ? (
+          <PuzzleDetail puzzleId={selectedPuzzleId} onBack={handleBackToList} />
+        ) : (
+          <>
+            <PuzzleList onSelectPuzzle={handleSelectPuzzle} />
+            <div className="demo-section">
+              <h2>デモを試す</h2>
+              <p>データベースを設定せずにデモのクロスワードパズルを試すことができます。</p>
+              <button onClick={handleShowDemo}>デモを表示</button>
+            </div>
+          </>
+        )}
+      </main>
+
+      <footer>
+        <p>Powered by AWS Amplify</p>
+      </footer>
+    </div>
   );
 }
 

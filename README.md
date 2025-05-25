@@ -1,25 +1,59 @@
-## AWS Amplify React+Vite Starter Template
+# AWS Amplify クロスワードパズルアプリ
 
-This repository provides a starter template for creating applications using React+Vite and AWS Amplify, emphasizing easy setup for authentication, API, and database capabilities.
+このリポジトリは、AWS Amplify を使用して構築されたクロスワードパズルゲームアプリケーションです。React と Vite を使用して開発されており、AWS のサービスを活用した認証、API、データベース機能を備えています。
 
-## Overview
+## 概要
 
-This template equips you with a foundational React application integrated with AWS Amplify, streamlined for scalability and performance. It is ideal for developers looking to jumpstart their project with pre-configured AWS services like Cognito, AppSync, and DynamoDB.
+このアプリケーションは、AWS サービスに関するクロスワードパズルを提供します。ユーザーはパズルを解いて AWS サービスについて学ぶことができます。
 
-## Features
+## 機能
 
-- **Authentication**: Setup with Amazon Cognito for secure user authentication.
-- **API**: Ready-to-use GraphQL endpoint with AWS AppSync.
-- **Database**: Real-time database powered by Amazon DynamoDB.
+- **クロスワードパズル**: インタラクティブなクロスワードパズルインターフェース
+- **パズル一覧**: 複数のパズルから選択可能
+- **進捗保存**: ユーザーの進捗状況を保存（実装予定）
+- **認証**: Amazon Cognito による安全なユーザー認証（オプション）
+- **データベース**: Amazon DynamoDB によるパズルデータと進捗状況の保存
 
-## Deploying to AWS
+## 使用技術
 
-For detailed instructions on deploying your application, refer to the [deployment section](https://docs.amplify.aws/react/start/quickstart/#deploy-a-fullstack-app-to-aws) of our documentation.
+- React + Vite
+- TypeScript
+- AWS Amplify Gen2
+- Amazon DynamoDB
+- Amazon Cognito (オプション)
+- react-crossword ライブラリ
 
-## Security
+## セットアップ方法
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+1. リポジトリをクローン:
+   ```
+   git clone https://github.com/yourusername/amplify-vite-react-crosswords.git
+   cd amplify-vite-react-crosswords
+   ```
 
-## License
+2. 依存関係をインストール:
+   ```
+   npm install
+   ```
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
+3. Amplify バックエンドをデプロイ:
+   ```
+   npx amplify sandbox
+   ```
+
+4. ローカルで実行:
+   ```
+   npm run dev
+   ```
+
+## AWS へのデプロイ
+
+詳細な手順については、[Amplify のドキュメント](https://docs.amplify.aws/react/start/quickstart/#deploy-a-fullstack-app-to-aws)を参照してください。
+
+## セキュリティ
+
+セキュリティの問題については、[CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications)を参照してください。
+
+## ライセンス
+
+このライブラリは MIT-0 ライセンスの下で提供されています。詳細は LICENSE ファイルを参照してください。
